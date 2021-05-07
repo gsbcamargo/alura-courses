@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Java Standard Taglib</title>
+<title>Alura Servlet Course</title>
 </head>
 <body>
 
@@ -22,6 +22,8 @@
 		<c:forEach items="${companies}" var="company">
 			
 			<li>${company.name} - <fmt:formatDate value="${company.openingDate}" pattern="dd/MM/yyyy"/> </li>
+			<a href="/gerenciador/showCompany?id=${company.id}">Editar</a>
+			<a href="/gerenciador/removeCompany?id=${company.id}">Remover</a>
 		</c:forEach>
 	</ul>
 	
