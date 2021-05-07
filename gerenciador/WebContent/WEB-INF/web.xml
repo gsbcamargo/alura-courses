@@ -5,6 +5,18 @@
     <welcome-file>bem-vindo.html</welcome-file>
   </welcome-file-list>
   
+  <servlet>
+  <servlet-name>HelloWorld</servlet-name>
+  <servlet-class>br.com.gabriel.gerenciador.servlet.HelloWorld</servlet-class>
+  
+  </servlet>
+  
+  <servlet-mapping>
+  
+  	<servlet-name>HelloWorld</servlet-name>
+  	<url-pattern>/ola</url-pattern>
+  
+  </servlet-mapping>
   
   
 </web-app>
