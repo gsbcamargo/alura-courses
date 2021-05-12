@@ -9,7 +9,7 @@ import br.com.gabriel.gerenciador.model.Database;
 
 public class CompanyRemover {
 	
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		System.out.println("Ação: Removendo empresa.");
 		
@@ -21,7 +21,8 @@ public class CompanyRemover {
 		Database database = new Database();
 		database.removeCompany(id);
 		
-		response.sendRedirect("input?action=ListCompany");
+		return "redirect:input?action=ListCompany";
+
 	}
 
 }

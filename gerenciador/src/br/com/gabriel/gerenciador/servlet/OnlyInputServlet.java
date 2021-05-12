@@ -2,6 +2,7 @@ package br.com.gabriel.gerenciador.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,26 +23,36 @@ public class OnlyInputServlet extends HttpServlet {
 	
 	String actionParam = request.getParameter("action");
 	
+	String name = null;
+	
 	if (actionParam.equals("ListCompany")) {
 		CompanyListener actionList = new CompanyListener();
-		actionList.execute(request, response);
+		name = actionList.execute(request, response);
 		
 	} else if (actionParam.equals("RemoveCompany")) {
 		CompanyRemover actionRemove = new CompanyRemover();
-		actionRemove.execute(request, response);
+		name = actionRemove.execute(request, response);
 		
 	} else if (actionParam.equals("ShowCompany")) {
 		CompanyShower actionShow = new CompanyShower();
-		actionShow.execute(request, response);
+		name = actionShow.execute(request, response);
 		
 	} else if (actionParam.equals("EditCompany")) { 
 		CompanyEditor actionEdit = new CompanyEditor();
-		actionEdit.execute(request, response);
+		name = actionEdit.execute(request, response);
 		
 	} else if (actionParam.equals("NewCompany")) { 
 		CompanyCreator actionCreate= new CompanyCreator();
-		actionCreate.execute(request, response);
+		name = actionCreate.execute(request, response);
 	
+	}
+	
+	String[] typeAndAddress = name.split(":");
+	if (typeAndAddress[0].equals("forward")) {
+		RequestDispatcher rd = request.getRequestDispatcher(typeAndAddress[1]);
+		rd.forward(request, response);
+	} else {
+		response.sendRedirect(typeAndAddress[1]);
 	}
 	
 	}

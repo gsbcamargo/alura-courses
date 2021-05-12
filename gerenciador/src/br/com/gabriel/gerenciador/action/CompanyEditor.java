@@ -14,7 +14,7 @@ import br.com.gabriel.gerenciador.model.Database;
 
 public class CompanyEditor {
 
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String companyName = request.getParameter("name");
 		String companyOpeningDate = request.getParameter("openingDate");
@@ -36,6 +36,7 @@ public class CompanyEditor {
 		company.setName(companyName);
 		company.setOpeningDate(openingDate);
 		
-		response.sendRedirect("input?action=ListCompany");
+		return "redirect:input?action=ListCompany";
+
 	}	
 }

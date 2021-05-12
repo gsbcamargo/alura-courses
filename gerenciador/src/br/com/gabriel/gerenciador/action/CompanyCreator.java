@@ -14,7 +14,7 @@ import br.com.gabriel.gerenciador.model.Database;
 
 public class CompanyCreator {
 
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		System.out.println("Cadastrando nova empresa");
 		
@@ -38,7 +38,7 @@ public class CompanyCreator {
 		
 		request.setAttribute("company", company.getName());
 		
-		response.sendRedirect("input?action=ListCompany");
+		return "redirect:input?action=ListCompany";
 		
 	}
 
