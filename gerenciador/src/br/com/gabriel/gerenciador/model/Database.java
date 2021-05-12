@@ -7,6 +7,7 @@ import java.util.List;
 public class Database {
 	
 	private static List<Company> list = new ArrayList<>();
+	private static List<User> userList = new ArrayList<>();
 	private static Integer sequentialKey = 1;
 	
 	static {
@@ -18,6 +19,15 @@ public class Database {
 		company2.setName("Caelum");
 		list.add(company1);
 		list.add(company2);
+		
+		User user1 = new User();
+		user1.setLogin("gabriel");
+		user1.setPassword("12345");
+		User user2 = new User();
+		user2.setLogin("yana");
+		user2.setPassword("12345");
+		userList.add(user1);
+		userList.add(user2);
 	}
 
 	public void add(Company company) {
@@ -46,6 +56,15 @@ public class Database {
 		for (Company company : list) {
 			if (company.getId() == id) {
 				return company;
+			}
+		}
+		return null;
+	}
+
+	public User doesUserExist(String login, String password) {
+		for (User user : userList) {
+			if (user.equals(login, password)) {
+				return user;
 			}
 		}
 		return null;
