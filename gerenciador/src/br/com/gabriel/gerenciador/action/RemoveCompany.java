@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.gabriel.gerenciador.model.Database;
 
-public class CompanyRemover {
+public class RemoveCompany implements Action {
 	
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		

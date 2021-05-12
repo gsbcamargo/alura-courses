@@ -12,34 +12,31 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.gabriel.gerenciador.model.Company;
 import br.com.gabriel.gerenciador.model.Database;
 
-public class CompanyCreator {
+public class EditCompany implements Action {
 
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
-		System.out.println("Cadastrando nova empresa");
-		
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String companyName = request.getParameter("name");
-		String companyCreationDate = request.getParameter("openingDate");
+		String companyOpeningDate = request.getParameter("openingDate");
+		String paramId = request.getParameter("id");
+		Integer id = Integer.valueOf(paramId);
+		
+		System.out.println("Ação: Editando empresa " + id);
 		
 		Date openingDate = null;
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			openingDate = sdf.parse(companyCreationDate);
+			openingDate = sdf.parse(companyOpeningDate);
 		} catch (ParseException e) {
 			throw new ServletException(e);
 		}
 		
-		Company company = new Company();
+		Database database = new Database();
+		Company company = database.getCompanyById(id);
 		company.setName(companyName);
 		company.setOpeningDate(openingDate);
 		
-		Database dataBase = new Database();
-		dataBase.add(company);
-		
-		request.setAttribute("company", company.getName());
-		
 		return "redirect:input?action=ListCompany";
-		
-	}
 
+	}	
 }
