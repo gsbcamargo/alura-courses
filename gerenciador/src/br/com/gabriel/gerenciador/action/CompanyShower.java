@@ -1,23 +1,20 @@
-package br.com.gabriel.gerenciador.servlet;
+package br.com.gabriel.gerenciador.action;
 
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.gabriel.gerenciador.model.Company;
 import br.com.gabriel.gerenciador.model.Database;
 
-@WebServlet("/showCompany")
-public class ShowCompanyServlet extends HttpServlet {
-	
-	private static final long serialVersionUID = 1L;
+public class CompanyShower {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		System.out.println("Ação: Mostrando empresas.");
 		
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
@@ -29,8 +26,7 @@ public class ShowCompanyServlet extends HttpServlet {
 		System.out.println("Empresa: " + company.getName());
 		
 		request.setAttribute("company", company);
-		RequestDispatcher rd = request.getRequestDispatcher("/modifyCompanyForm.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/editCompanyForm.jsp");
 		rd.forward(request, response);
-	}
-
+	}	
 }

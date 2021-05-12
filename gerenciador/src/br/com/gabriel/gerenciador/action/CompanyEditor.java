@@ -1,4 +1,4 @@
-package br.com.gabriel.gerenciador.servlet;
+package br.com.gabriel.gerenciador.action;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -6,27 +6,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.gabriel.gerenciador.model.Company;
 import br.com.gabriel.gerenciador.model.Database;
 
-@WebServlet("/modifyCompany")
-public class ModifyCompanyServlet extends HttpServlet {
-	
-	private static final long serialVersionUID = 1L;
+public class CompanyEditor {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		System.out.println("Alterando empresa.");
-		
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String companyName = request.getParameter("name");
 		String companyOpeningDate = request.getParameter("openingDate");
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
+		
+		System.out.println("Ação: Editando empresa " + id);
 		
 		Date openingDate = null;
 		try {
@@ -36,16 +31,11 @@ public class ModifyCompanyServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		
-		System.out.println("Id: " + id);
-		
 		Database database = new Database();
 		Company company = database.getCompanyById(id);
 		company.setName(companyName);
 		company.setOpeningDate(openingDate);
 		
-		response.sendRedirect("companyList");
-		
-		
-	}
-
+		response.sendRedirect("input?action=ListCompany");
+	}	
 }

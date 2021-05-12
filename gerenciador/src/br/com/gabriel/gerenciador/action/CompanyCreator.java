@@ -1,4 +1,4 @@
-package br.com.gabriel.gerenciador.servlet;
+package br.com.gabriel.gerenciador.action;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -6,21 +6,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.gabriel.gerenciador.model.Company;
 import br.com.gabriel.gerenciador.model.Database;
 
-@WebServlet("/newCompany")
-public class NewCompanyServlet extends HttpServlet {
-	
-	private static final long serialVersionUID = 1L;
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
+public class CompanyCreator {
+
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
 		System.out.println("Cadastrando nova empresa");
 		
 		String companyName = request.getParameter("name");
@@ -43,12 +38,8 @@ public class NewCompanyServlet extends HttpServlet {
 		
 		request.setAttribute("company", company.getName());
 		
-		response.sendRedirect("companyList");
+		response.sendRedirect("input?action=ListCompany");
 		
-//		//chamar o JSP ou Servlet
-//		RequestDispatcher rd = request.getRequestDispatcher("/companyList");
-//		request.setAttribute("company", company.getName());
-//		rd.forward(request, response);
 	}
 
 }
