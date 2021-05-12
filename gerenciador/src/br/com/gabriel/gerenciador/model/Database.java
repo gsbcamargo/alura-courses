@@ -1,4 +1,4 @@
-package br.com.gabriel.gerenciador.servlet;
+package br.com.gabriel.gerenciador.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.gabriel.gerenciador.model.Company;
+import br.com.gabriel.gerenciador.model.Database;
+
 @WebServlet("/companyList")
 public class CompanyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

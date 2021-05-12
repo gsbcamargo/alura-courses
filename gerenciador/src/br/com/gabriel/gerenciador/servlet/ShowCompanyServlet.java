@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.gabriel.gerenciador.model.Company;
+import br.com.gabriel.gerenciador.model.Database;
+
 @WebServlet("/showCompany")
 public class ShowCompanyServlet extends HttpServlet {
 	
