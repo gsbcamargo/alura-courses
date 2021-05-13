@@ -12,6 +12,13 @@
 </head>
 <body>
 
+	<c:import url="partial-logout.jsp"/>
+
+	Usuário logado: ${userSigned.login}
+	
+	<br>
+	<br>
+
 	<c:if test="${not empty company}">
 		Empresa ${company} cadastrada com sucesso!
 	</c:if>
@@ -24,8 +31,11 @@
 			<li>${company.name} - <fmt:formatDate value="${company.openingDate}" pattern="dd/MM/yyyy"/> </li>
 			<a href="/gerenciador/input?action=ShowCompany&id=${company.id}">Editar</a>
 			<a href="/gerenciador/input?action=RemoveCompany&id=${company.id}">Remover</a>
+			<br>
+			<br>
 		</c:forEach>
 	</ul>
+	<a href="input?action=NewCompanyForm">Adicionar empresa</a>
 	
 </body>
 </html>

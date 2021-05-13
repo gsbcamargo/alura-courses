@@ -9,6 +9,8 @@
 </head>
 <body>
 
+	<c:import url="partial-logout.jsp"/>
+
 	<form action="${inputServlet}" method="POST">
 	
 		Nome: <input type="text" name="name"/>
@@ -16,6 +18,8 @@
 		<input type="hidden" name="action" value="NewCompany"/>
 		<input type="submit"/>
 	</form>
+	<br>	
+	<a href="input?action=ListCompany">Voltar para a lista</a>
 
 </body>
 </html>

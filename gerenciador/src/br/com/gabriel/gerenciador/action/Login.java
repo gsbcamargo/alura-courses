@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.gabriel.gerenciador.model.Database;
 import br.com.gabriel.gerenciador.model.User;
@@ -24,6 +25,8 @@ public class Login implements Action {
 		if(user != null) {
 			System.out.println("Usuário existe.");
 			System.out.println(login + " logando.");
+			HttpSession session = request.getSession();
+			session.setAttribute("userSigned", user);
 			return "redirect:input?action=ListCompany";
 		} else {
 			System.out.println("Usuário desconhecido.");
