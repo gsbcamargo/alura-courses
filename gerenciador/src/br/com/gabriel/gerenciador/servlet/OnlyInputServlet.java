@@ -4,36 +4,20 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import br.com.gabriel.gerenciador.action.NewCompany;
-import br.com.gabriel.gerenciador.action.NewCompanyForm;
 import br.com.gabriel.gerenciador.action.Action;
-import br.com.gabriel.gerenciador.action.EditCompany;
-import br.com.gabriel.gerenciador.action.ListCompany;
-import br.com.gabriel.gerenciador.action.RemoveCompany;
-import br.com.gabriel.gerenciador.action.ShowCompany;
 
-@WebServlet("/input")
+//@WebServlet("/input")
 public class OnlyInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		String actionParam = request.getParameter("action");
-		
-		HttpSession session = request.getSession();
-		boolean userNotSigned = (session.getAttribute("userSigned") == null);
-		boolean isAProtectedAction = !(actionParam.equals("Login") || actionParam.equals("LoginForm"));
-		
-		if (isAProtectedAction && userNotSigned) {
-			response.sendRedirect("input?action=LoginForm");
-			return;
-		}
 		
 		String className = "br.com.gabriel.gerenciador.action." + actionParam;
 		
