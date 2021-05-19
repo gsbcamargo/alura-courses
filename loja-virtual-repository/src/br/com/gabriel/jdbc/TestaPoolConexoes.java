@@ -1,3 +1,4 @@
+package br.com.gabriel.jdbc;
 import java.sql.SQLException;
 
 public class TestaPoolConexoes {
