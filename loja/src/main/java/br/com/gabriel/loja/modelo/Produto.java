@@ -3,6 +3,7 @@ package br.com.gabriel.loja.modelo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,8 @@ public class Produto {
 	private String nome;
 	private String descricao;
 	private BigDecimal preco;
+	
+	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro = LocalDate.now();
 
 	@ManyToOne
