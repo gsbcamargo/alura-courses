@@ -1,6 +1,7 @@
 package br.com.gabriel.loja.testes;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -14,46 +15,49 @@ import br.com.gabriel.loja.modelo.ItemPedido;
 import br.com.gabriel.loja.modelo.Pedido;
 import br.com.gabriel.loja.modelo.Produto;
 import br.com.gabriel.loja.util.JpaUtil;
+import br.com.gabriel.loja.vo.RelatorioDeVendasVo;
 
 public class CadastroDePedido {
 
 	public static void main(String[] args) {
-		
+
 		popularBancoDados();
-		
+
 		EntityManager em = JpaUtil.getEntityManager();
 		ProdutoDao produtoDao = new ProdutoDao(em);
 		ClienteDao clienteDao = new ClienteDao(em);
-		
+
 		Produto produto = produtoDao.buscarPorId(1l);
 		Cliente cliente = clienteDao.bucarPorId(1l);
-		
+
 		em.getTransaction().begin();
-		
 
 		Pedido pedido = new Pedido(cliente);
 		pedido.adicionarItem(new ItemPedido(5, pedido, produto));
-		
+
 		PedidoDao pedidoDao = new PedidoDao(em);
 		pedidoDao.cadastrar(pedido);
-		
+
 		em.getTransaction().commit();
-		
+
 		BigDecimal totalVendido = pedidoDao.valorTotalVendido();
 		System.out.println("Valor total: " + totalVendido);
+
+		List<RelatorioDeVendasVo> relatorio = pedidoDao.relatorioDeVendas();
+		relatorio.forEach(System.out::println);
 	}
-	
+
 	private static void popularBancoDados() {
 		Categoria informatica = new Categoria("INFORMATICA");
 		Produto notebook = new Produto("Lenovo ThinkPad", "Awesome workstation", new BigDecimal("8000"), informatica);
-		
+
 		Cliente cliente = new Cliente("Gabriel", "123456");
-		
+
 		EntityManager em = JpaUtil.getEntityManager();
 		ProdutoDao produtoDao = new ProdutoDao(em);
 		CategoriaDao categoriaDao = new CategoriaDao(em);
 		ClienteDao clienteDao = new ClienteDao(em);
-		
+
 		em.getTransaction().begin();
 
 		categoriaDao.cadastrar(informatica);
@@ -62,8 +66,7 @@ public class CadastroDePedido {
 
 		em.getTransaction().commit();
 		em.close();
-		
+
 	}
-	
 
 }
