@@ -24,6 +24,8 @@ public class CrudCargoService {
 			System.out.println("0 - Sair");
 			System.out.println("1 - Salvar");
 			System.out.println("2 - Atualizar");
+			System.out.println("3 - Visualizar");
+			System.out.println("4 - Excluir");
 		
 			int action = scanner.nextInt();
 			
@@ -33,6 +35,12 @@ public class CrudCargoService {
 				break;
 			case 2:
 				atualizar(scanner);
+				break;
+			case 3:
+				visualizar();
+				break;
+			case 4:
+				deletar(scanner);
 				break;
 			default:
 				system = false;
@@ -64,6 +72,18 @@ public class CrudCargoService {
 		repository.save(cargo);
 		System.out.println("Cargo atualizado.");
 		
+	}
+	
+	private void visualizar() {
+		Iterable<Cargo> cargosIterable = repository.findAll();
+		cargosIterable.forEach(cargo -> System.out.println(cargo));
+	}
+	
+	private void deletar(Scanner scanner) {
+		System.out.println("Digite o ID a ser excluído:");
+		int id = scanner.nextInt();
+		repository.deleteById(id);
+		System.out.println("Cargo com id " + id + " foi excluído com sucesso.");
 	}
 
 }
