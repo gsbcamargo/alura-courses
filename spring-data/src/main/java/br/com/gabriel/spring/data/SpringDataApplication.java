@@ -5,18 +5,32 @@ import java.util.Scanner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import br.com.gabriel.spring.data.service.CrudCargoService;
+import br.com.gabriel.spring.data.service.CrudFuncionarioService;
+import br.com.gabriel.spring.data.service.CrudUnidadeTrabalhoService;
+import br.com.gabriel.spring.data.service.RelatoriosService;
 
+@EnableJpaRepositories
 @SpringBootApplication
 public class SpringDataApplication implements CommandLineRunner {
-	
-	private final CrudCargoService cargoService;
 
 	private Boolean system = true;
 
-	public SpringDataApplication(CrudCargoService cargoService) {
+	private final CrudCargoService cargoService;
+	private final CrudFuncionarioService funcionarioService;
+	private final CrudUnidadeTrabalhoService unidadeTrabalhoService;
+	private final RelatoriosService relatoriosService;
+
+	public SpringDataApplication(CrudCargoService cargoService,
+			CrudFuncionarioService funcionarioService, 
+			CrudUnidadeTrabalhoService unidadeTrabalhoService,
+			RelatoriosService relatoriosService) {
 		this.cargoService = cargoService;
+		this.funcionarioService = funcionarioService;
+		this.unidadeTrabalhoService = unidadeTrabalhoService;
+		this.relatoriosService = relatoriosService;
 	}
 
 	public static void main(String[] args) {
@@ -27,16 +41,32 @@ public class SpringDataApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Scanner scanner = new Scanner(System.in);
 
-		while (system == true) {
-			System.out.println("Qual ação deseja executar?");
+		while (system) {
+			System.out.println("Qual função deseja executar?");
 			System.out.println("0 - Sair");
-			System.out.println("1 - Cargo");
+			System.out.println("1 - Funcionario");
+			System.out.println("2 - Cargo");
+			System.out.println("3 - Unidade");
+			System.out.println("4 - Relatórios");
 			
-			int action = scanner.nextInt();
-			if (action == 1) {
-				cargoService.inicial(scanner);
-			} else {
-				system = false;
+			Integer function = scanner.nextInt();
+
+			switch (function) {
+				case 1:
+					funcionarioService.inicial(scanner);
+					break;
+				case 2:
+					cargoService.inicial(scanner);
+					break;
+				case 3:
+					unidadeTrabalhoService.inicial(scanner);
+					break;
+				case 4:
+					relatoriosService.inicial(scanner);
+				default:
+					System.out.println("Finalizando");
+					system = false;
+					break;
 			}
 		}
 	}
