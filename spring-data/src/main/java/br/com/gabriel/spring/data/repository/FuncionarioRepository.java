@@ -12,10 +12,16 @@ import br.com.gabriel.spring.data.orm.Funcionario;
 @Repository
 public interface FuncionarioRepository extends CrudRepository<Funcionario, Integer> {
 	
+	// derived query
 	List<Funcionario> findByNome(String nome);
 	
+	// jpql
 	@Query("SELECT f FROM Funcionario f WHERE f.nome = :nome "
 			+ "AND f.salario >= :salario "
 			+ "AND f.dataContratacao = :data")
 	List<Funcionario> buscaNomeSalarioMaiorQueEDataContratacao(String nome, Double salario, LocalDate data);
+	
+	// native query
+	@Query(value = "SELECT * FROM funcionarios f WHERE f.data_contratacao >= :data", nativeQuery = true)
+	List<Funcionario> buscaDataContratacaoMaiorQue(LocalDate data);	
 }
