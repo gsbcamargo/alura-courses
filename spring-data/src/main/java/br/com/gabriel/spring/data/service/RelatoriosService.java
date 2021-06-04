@@ -8,6 +8,7 @@ import java.util.Scanner;
 import org.springframework.stereotype.Service;
 
 import br.com.gabriel.spring.data.orm.Funcionario;
+import br.com.gabriel.spring.data.orm.FuncionarioProjecao;
 import br.com.gabriel.spring.data.repository.FuncionarioRepository;
 
 @Service
@@ -28,9 +29,10 @@ public class RelatoriosService {
 		while (system) {
 			System.out.println("Qual relatório deseja executar?");
 			System.out.println("0 - Sair");
-			System.out.println("1 - Busca funcionário por nome");
-			System.out.println("2 - Busca funcionário por nome, salario maior que... e data de contratação");
+			System.out.println("1 - Busca funcionário por nome:");
+			System.out.println("2 - Busca funcionário por nome, salario maior que... e data de contratação:");
 			System.out.println("3 - Busca funcionário por data de contratação maior que:");
+			System.out.println("4 - Busca funcionario por salário:");
 
 			int action = scanner.nextInt();
 
@@ -82,5 +84,11 @@ public class RelatoriosService {
 
 		List<Funcionario> lista = funcionarioRepository.buscaDataContratacaoMaiorQue(localDate);
 		lista.forEach(System.out::println);
+	}
+
+	private void buscaFuncionarioSalario() {
+		List<FuncionarioProjecao> lista = funcionarioRepository.buscaFucinarioSalario();
+		lista.forEach(f -> System.out.println(
+				"Funcionário: id: " + f.getId() + " | nome: " + f.getNome() + " | salario: " + f.getSalario()));
 	}
 }
