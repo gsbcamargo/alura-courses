@@ -3,6 +3,7 @@ package br.com.gabriel.spring.data.repository;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 // import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -12,22 +13,25 @@ import br.com.gabriel.spring.data.orm.Funcionario;
 import br.com.gabriel.spring.data.orm.FuncionarioProjecao;
 
 @Repository
-public interface FuncionarioRepository extends PagingAndSortingRepository<Funcionario, Integer> {
-	
+public interface FuncionarioRepository
+		extends PagingAndSortingRepository<Funcionario, Integer>, JpaSpecificationExecutor<Funcionario> {
+
 	// derived query
 	List<Funcionario> findByNome(String nome);
-	
+
 	// jpql
-	@Query("SELECT f FROM Funcionario f WHERE f.nome = :nome "
-			+ "AND f.salario >= :salario "
+	@Query("SELECT f FROM Funcionario f WHERE f.nome = :nome " + "AND f.salario >= :salario "
 			+ "AND f.dataContratacao = :data")
 	List<Funcionario> buscaNomeSalarioMaiorQueEDataContratacao(String nome, Double salario, LocalDate data);
-	
+
 	// native query
 	@Query(value = "SELECT * FROM funcionarios f WHERE f.data_contratacao >= :data", nativeQuery = true)
-	List<Funcionario> buscaDataContratacaoMaiorQue(LocalDate data);	
-	
+	List<Funcionario> buscaDataContratacaoMaiorQue(LocalDate data);
+
 	// native query
 	@Query(value = "SELECT f.id, f.nome, f.salario FROM funcionarios f", nativeQuery = true)
 	List<FuncionarioProjecao> buscaFucinarioSalario();
+
+	//
+	
 }
