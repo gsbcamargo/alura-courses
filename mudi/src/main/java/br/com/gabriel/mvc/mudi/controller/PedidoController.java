@@ -30,7 +30,7 @@ public class PedidoController {
 		if (result.hasErrors()) {
 			return "pedido/formulario";
 		}
-		
+
 		Pedido pedido = requisicao.toPedido();
 		pedidoRepository.save(pedido);
 		return "pedido/formulario";

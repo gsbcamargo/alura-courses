@@ -8,10 +8,10 @@ public class RequisicaoNovoPedido {
 
 	@NotBlank
 	private String nomeProduto;
-	
+
 	@NotBlank
 	private String urlProduto;
-	
+
 	@NotBlank
 	private String urlImagem;
 
