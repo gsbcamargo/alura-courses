@@ -28,7 +28,7 @@
 						</div>
 						<div class="col-12 col-sm-4">
 							<div>
-								<img class="img-thumbnail" v-bind:src="pedido.urlImagem" src=""/>
+								<img class="img-thumbnail" v-bind:src="pedido.urlImagem"/>
 							</div>
 						</div>
 					</div>
@@ -40,31 +40,17 @@
 				var app = new Vue({
 					  el: '#ofertas',
 					  data: {
-					    pedidos: [
-				    	{
-				    		"id": 21,
-				    		"nomeProduto": "Xiaomi Poco X3-64Gb",
-				    		"valorNegociado": 1700,
-				    		"dataDaEntrega": null,
-				    		"urlProduto": "https://www.amazon.com.br/gp/product/B08H5J2JWH?pf_rd_r=874AMZ431CET3V4VV98T&pf_rd_p=72a7651a-a7d8-4551-b248-c61480b6ce6e&pd_rd_r=90037cb8-dd87-4c3a-9beb-c8d0d9896dee&pd_rd_w=xhmno&pd_rd_wg=tbpaw&ref_=pd_gw_unk",
-				    		"urlImagem": "https://images-na.ssl-images-amazon.com/images/I/51vA5toXXbL._AC_.jpg",
-				    		"descricao": "Um bom custo-benefício.",
-				    		"status": "AGUARDANDO"
-				    		},
-				    		{
-				    		"id": 1,
-				    		"nomeProduto": "Kindle",
-				    		"valorNegociado": 200,
-				    		"dataDaEntrega": null,
-				    		"urlProduto": "https://www.amazon.com.br/Kindle-10a-gera%C3%A7%C3%A3o-ilumina%C3%A7%C3%A3o-embutida/dp/B07FQK1TS9/ref=asc_df_B07FQK1TS9/?tag=googleshopp00-20&linkCode=df0&hvadid=432951822456&hvpos=&hvnetw=g&hvrand=17413742439289834887&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1001634&hvtargid=pla-901759904091&psc=1",
-				    		"urlImagem": "https://images-na.ssl-images-amazon.com/images/I/61X0ISBpD-L._AC_SL1000_.jpg",
-				    		"descricao": "Anything really just for testing purposes",
-				    		"status": "AGUARDANDO"
-				    		} ]
+					    pedidos: []
+					  },
+					  mounted() {
+						  axios
+						      .get('http://localhost:8080/api/pedidos/aguardando')
+						      .then(response => (this.pedidos = response.data))
 					  }
 				});
 			}
 		</script>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	</body>
 </html>
