@@ -24,12 +24,13 @@ export class NegociacoesView {
                     ${model.listar().map(negociacao => {
                         return `
                             <tr>
-                                <td>?</td>
+                                <td>${new Intl.DateTimeFormat().format(negociacao.data)}</td>
                                 <td>${negociacao.quantidade}</td>
                                 <td>${negociacao.valor}</td>
                             </tr>
-                        `
-                    }).join('')}
+                        `;
+                    }).join('')
+                }
                 </tbody>
             </table>
         `;
