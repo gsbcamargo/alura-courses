@@ -15,19 +15,19 @@ export class NegociacaoController {
     protected readonly DOMINGO = 0;
 
     constructor() {
-        this.inputData = document.querySelector('#data');
-        this.inputQuantidade = document.querySelector('#quantidade');
-        this.inputValor = document.querySelector('#valor');
+        this.inputData = document.querySelector('#data') as HTMLInputElement;
+        this.inputQuantidade = document.querySelector('#quantidade') as HTMLInputElement;
+        this.inputValor = document.querySelector('#valor') as HTMLInputElement;
         this.negociacoesView.update(this.negociacoes);
     }
 
     public adiciona(): void {
-        const negociacaoTemp = new Negociacao(null, 0, 0);
         const negociacao = Negociacao.criaDe(
             this.inputData.value,
             this.inputQuantidade.value,
             this.inputValor.value
         );
+
         if (!this.isDiaUtil(negociacao.data)) {
             this.mensagemView
                 .update('São aceitas apenas negociações em dias úteis.');
