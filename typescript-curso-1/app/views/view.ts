@@ -1,4 +1,4 @@
-import { Negociacoes } from "../models/negociacoes";
+import { logarTempoDeExecucao } from "../decorators/logar-tempo-execucao.js";
 
 export abstract class View<T> {
 
@@ -17,12 +17,13 @@ export abstract class View<T> {
         }
     }
 
+    @logarTempoDeExecucao()
     public update(model: T): void {
         let template = this.template(model);
-        this.elemento.innerHTML = template;
         if (this.escapar) {
             template = template.replace(/<script>[\s\S]*?<\/script>/, '');
         }
+        this.elemento.innerHTML = template;
     }
 
     protected abstract template(model: T): string;
