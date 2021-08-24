@@ -2,9 +2,9 @@ import { domInjector } from "../decorators/dom-injector.js";
 import { inspecionar } from "../decorators/inspecionar.js";
 import { logarTempoDeExecucao } from "../decorators/logar-tempo-execucao.js";
 import { DiasDaSemana } from "../enums/dias-da-semana.js";
-import { NegociacoesDoDia } from "../interfaces/negociacao-do-dia.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
+import { NegociacoesService } from "../services/negociacoes-service.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 
@@ -23,6 +23,7 @@ export class NegociacaoController {
     private mensagemView = new MensagemView('#mensagemView');
     protected readonly SABADO = 6;
     protected readonly DOMINGO = 0;
+    private negociacoesService = new NegociacoesService;
 
     constructor() {
         this.negociacoesView.update(this.negociacoes);
@@ -49,22 +50,14 @@ export class NegociacaoController {
     }
 
     public importarDados(): void {
-        fetch('http://localhost:8080/dados')
-        .then(response => response.json())
-        .then((dados: NegociacoesDoDia[]) => {
-             return dados.map(dadosDeHoje => {
-                return new Negociacao(new Date(), 
-                dadosDeHoje.vezes, 
-                dadosDeHoje.montante
-                );
-            })
-        })
-        .then(negociacoesDeHoje => {
-            for (let negociacao of negociacoesDeHoje) {
-                this.negociacoes.adiciona(negociacao);
-            }
-            this.negociacoesView.update(this.negociacoes);
-        });
+        this.negociacoesService
+            .obterNegociacoesDoDia()
+            .then(negociacoesDeHoje => {
+                for (let negociacao of negociacoesDeHoje) {
+                    this.negociacoes.adiciona(negociacao);
+                }
+                this.negociacoesView.update(this.negociacoes);
+            });
     }
 
     private isDiaUtil(data: Date): boolean {
